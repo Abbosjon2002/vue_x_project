@@ -1,0 +1,1 @@
+export const logo = 'https://acode.uz/acode-sources/acode-images/acode-logo.png'
