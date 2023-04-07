@@ -1,1 +1,1 @@
-export const logo = 'https://acode.uz/acode-sources/acode-images/acode-logo.png'
+export const logo = 'https://acode-education.netlify.app/acode-sources/acode-images/acode-logo.png'
