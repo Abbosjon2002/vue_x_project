@@ -1,4 +1,5 @@
 import AuthService from "@/services/auth";
+import {setItem} from "@/helper/persistanseStorage";
 
 const state = {
     isLoading: false,
@@ -18,7 +19,7 @@ const mutations = {
     },
     failureRegister(state, payload) {
         state.isLoading = false
-        state.error = payload
+        state.error = payload.errors
     }
 }
 
@@ -29,6 +30,7 @@ const actions = {
             AuthService.register(user)
                 .then(response => {
                     context.commit('successRegister', response.data.user)
+                    setItem('token', response.data.user.token)
                     resolve(response.data.user)
                 })
                 .catch(error => {

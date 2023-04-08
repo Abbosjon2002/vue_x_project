@@ -4,6 +4,7 @@
       <form>
         <img class="mb-4 w-50" :src="logo" alt="">
         <h1 class="h3 mb-3 fw-normal">Register</h1>
+  <validation-error v-if="validationErrors" :validationErrors='validationErrors'/>
         <Input :type="'text'" class="input" :label="'Fullname'" v-model="username_auth" />
         <Input :type="'email'" :label="'Email'" :class="'mt-3'" v-model="email_auth"/>
         <Input :type="'password'" :label="'Password'" :class="'mt-3'" v-model="password_auth"/>
@@ -16,9 +17,11 @@
 
 <script>
 import {logo} from "@/components/constants";
+import ValidationError from "@/components/ValidationError.vue";
 
 export default {
   name: "Register",
+  components: {ValidationError},
   data() {
     return {
       logo: logo,
@@ -31,6 +34,9 @@ export default {
   computed: {
     isLoading() {
       return this.$store.state.auth.isLoading
+    },
+    validationErrors() {
+      return this.$store.state.auth.error
     }
   },
   methods: {
