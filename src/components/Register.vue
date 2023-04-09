@@ -18,6 +18,7 @@
 <script>
 import {logo} from "@/components/constants";
 import ValidationError from "@/components/ValidationError.vue";
+import {mapState} from "vuex";
 
 export default {
   name: "Register",
@@ -32,12 +33,10 @@ export default {
   },
 
   computed: {
-    isLoading() {
-      return this.$store.state.auth.isLoading
-    },
-    validationErrors() {
-      return this.$store.state.auth.error
-    }
+    ...mapState({
+      isLoading: state => state.auth.isLoading,
+      validationErrors: state => state.auth.error
+    })
   },
   methods: {
 

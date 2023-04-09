@@ -20,7 +20,21 @@ const mutations = {
     failureRegister(state, payload) {
         state.isLoading = false
         state.error = payload.errors
-    }
+    },
+    startLogin(state){
+        state.isLoading = true
+        state.user = null
+        state.error = null
+    },
+    successLogin(state, payload){
+        state.isLoading = false
+        state.user = payload
+    },
+    failureLogin(state, payload){
+        state.isLoading = false
+        state.error = payload.errors
+    },
+
 }
 
 const actions = {
@@ -39,6 +53,22 @@ const actions = {
                 })
 
         })
+    },
+
+    login(context, user) {
+        return new Promise((resolve, reject)=>{
+            context.commit('startLogin')
+            AuthService.login(user)
+                .then(response =>{
+                    context.commit('successRegister', response.data.user)
+                    setItem('token', response.data.user.token)
+                    resolve(response.data.user)
+                })
+                .catch(error => {
+                    context.commit('failureRegister', error.response.data)
+                    reject(error.response.data)
+                })
+        });
     }
 }
 export default {
