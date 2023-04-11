@@ -1,5 +1,5 @@
 import AuthService from "@/services/auth";
-import {setItem} from "@/helper/persistanseStorage";
+import {removeItem, setItem} from "@/helper/persistanseStorage";
 import {getterTypes} from "@/modules/types";
 
 const state = {
@@ -69,6 +69,10 @@ const mutations = {
         state.user = null
         state.isLoggedIn = false
     },
+    logout(state){
+        state.user = null
+        state.isLoggedIn = false
+    }
 
 
 }
@@ -118,7 +122,13 @@ const actions = {
                 .catch(()=> context.commit('failureCurrentUser'))
 
         })
+    },
+    logout(context) {
+        context.commit('logout')
+        removeItem('token')
     }
+
+
 }
 export default {
     state, mutations, actions, getters

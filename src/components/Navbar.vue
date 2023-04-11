@@ -6,7 +6,8 @@
       </RouterLink>
       <template v-if="isLoggedIn">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMfaVtR50PIe3narGDtBb9CHruowCn4RYjztsuoFU&s" alt="acc" class="m-3" style="width: 30px">
-        <RouterLink :to="{name: 'home'}" class="me-3 py-2  text-primary text-uppercase  text-decoration-none" href="#">{{currentUser.username }}</RouterLink>
+        <RouterLink :to="{name: 'home'}" class="me-3 py-2  text-dark" href="#">{{currentUser.username }}</RouterLink>
+        <a href="#" class="me-3 py-2 text-dark text-decoration-none" @click="logout">Logout</a>
       </template>
 
       <template v-if="isAnonymous">
@@ -22,7 +23,7 @@
 
 <script>
 import {logo} from "@/components/constants";
-import {mapGetters, mapState} from "vuex";
+import {mapGetters} from "vuex";
 import {getterTypes} from "@/modules/types";
 
 export default {
@@ -39,6 +40,11 @@ export default {
       isLoggedIn: getterTypes.isLoggedIn,
       isAnonymous: getterTypes.isAnonymous
     }),
+  },
+  methods:{
+    logout(){
+      return this.$store.dispatch("logout")
+    }
   }
 }
 </script>
