@@ -6,10 +6,10 @@
       </RouterLink>
       <template v-if="isLoggedIn">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMfaVtR50PIe3narGDtBb9CHruowCn4RYjztsuoFU&s" alt="acc" class="m-3" style="width: 30px">
-        <RouterLink :to="{name: 'home'}" class="me-3 py-2  text-primary text-uppercase  text-decoration-none" href="#">{{user.username }}</RouterLink>
+        <RouterLink :to="{name: 'home'}" class="me-3 py-2  text-primary text-uppercase  text-decoration-none" href="#">{{currentUser.username }}</RouterLink>
       </template>
 
-      <template v-if="!isLoggedIn">
+      <template v-if="isAnonymous">
         <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
           <RouterLink :to="{name: 'login'}" class="me-3 py-2 text-dark text-decoration-none" href="#">Login</RouterLink>
           <RouterLink :to="{name: 'register'}" class="me-3 py-2 text-dark text-decoration-none" href="#">Register
@@ -22,7 +22,8 @@
 
 <script>
 import {logo} from "@/components/constants";
-import {mapState} from "vuex";
+import {mapGetters, mapState} from "vuex";
+import {getterTypes} from "@/modules/types";
 
 export default {
   name: "Navbar",
@@ -33,10 +34,11 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      user: state => state.auth.user,
-      isLoggedIn: state => state.auth.isLoggedIn
-    })
+    ...mapGetters({
+      currentUser: getterTypes.currentUser,
+      isLoggedIn: getterTypes.isLoggedIn,
+      isAnonymous: getterTypes.isAnonymous
+    }),
   }
 }
 </script>

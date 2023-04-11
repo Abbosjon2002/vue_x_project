@@ -15,7 +15,10 @@ import {defineComponent} from "vue";
 import Navbar from "@/components/Navbar.vue";
 
 export default defineComponent({
-  components: {Navbar}
+  components: {Navbar},
+  mounted() {
+    this.$store.dispatch("getUser")
+  }
 })
 </script>
 <style scoped>
