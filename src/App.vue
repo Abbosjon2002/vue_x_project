@@ -18,7 +18,9 @@ export default defineComponent({
   components: {Navbar},
   mounted() {
     this.$store.dispatch("getUser")
-  }
+  },
+
+
 })
 </script>
 <style scoped>
